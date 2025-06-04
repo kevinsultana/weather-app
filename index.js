@@ -12,3 +12,9 @@ checkbox.addEventListener("change", () => {
 if (checkbox.checked) {
   dot.style.transform = "translateX(30px)";
 }
+
+const toggleDark = document.getElementById("toggle-dark");
+
+toggleDark.addEventListener("change", function () {
+  document.documentElement.classList.toggle("dark");
+});
