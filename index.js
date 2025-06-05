@@ -128,7 +128,6 @@ const getDataForecast = async () => {
     console.log(data);
 
     const forecastContainer = document.getElementById("forecast-container");
-
     data.daily.time.forEach((time, index) => {
       const averageTemp = Number(
         (data.daily.temperature_2m_max[index] +
