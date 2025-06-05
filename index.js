@@ -39,6 +39,37 @@ const formatDay = (date) => {
   return date.toLocaleDateString("id-ID", { weekday: "long" });
 };
 
+const weatherCodeDetails = {
+  0: "Clear Sky",
+  1: "Mainly Clear",
+  2: "Partly Cloudy",
+  3: "Overcast",
+  45: "Fog",
+  48: "Depositing Rime fog",
+  51: "Drizzle Light",
+  53: "Drizzle Moderate",
+  55: "Drizzle Dense",
+  56: "Freezing Drizzle Light",
+  57: "Freezing Drizzle Dense ",
+  61: "Slight Rain",
+  63: "Moderate Rain",
+  65: "Heavy Rain",
+  66: "Freezing Light Rain",
+  67: "Freezing Heavy Rain",
+  71: "Slight Snow fall",
+  73: "Moderate Snow fall",
+  75: "Heavy Snow fall",
+  77: "Snow grains",
+  80: "Slight Rain showers",
+  81: "Moderate Rain showers",
+  82: "Heavy Rain showers",
+  85: "Slight Snow showers",
+  86: "Heavy Snow showers",
+  95: "Slight Thunderstorm",
+  96: "Slight Thunderstorm",
+  99: "Heavy Thunderstorm",
+};
+
 const getDataCurrent = async () => {
   try {
     const response = await fetch(urlCurrent);
@@ -56,6 +87,7 @@ const getDataCurrent = async () => {
     const currentTemp = document.getElementById("current-temp");
     currentTemp.textContent =
       dataCurrent.current.temperature_2m +
+      " " +
       dataCurrent.current_units.temperature_2m;
 
     const responseDaily = await fetch(urlDaily);
@@ -70,6 +102,15 @@ const getDataCurrent = async () => {
       " Low: " +
       dataDaily.daily.temperature_2m_min[0] +
       dataDaily.daily_units.temperature_2m_min;
+
+    const currentWeather = document.getElementById("current-weather");
+    currentWeather.innerHTML = `<img src="./assets/weather-code/${dataDaily.daily.weather_code[0]}.png" alt="weather-code" class="h-52" />`;
+
+    const currentWeatherDescription = document.getElementById(
+      "current-weather-description"
+    );
+    currentWeatherDescription.textContent =
+      weatherCodeDetails[dataDaily.daily.weather_code[0]];
   } catch (error) {
     console.log(error);
   }
