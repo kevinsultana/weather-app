@@ -92,7 +92,7 @@ const getDataCurrent = async () => {
 
     const responseDaily = await fetch(urlDaily);
     const dataDaily = await responseDaily.json();
-    console.log(dataDaily);
+    // console.log(dataDaily);
 
     const currentTempRange = document.getElementById("current-temp-range");
     currentTempRange.textContent =
@@ -117,3 +117,46 @@ const getDataCurrent = async () => {
 };
 
 getDataCurrent();
+
+const urlForecast =
+  "https://api.open-meteo.com/v1/forecast?latitude=-6.18&longitude=106.8223&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto";
+
+const getDataForecast = async () => {
+  try {
+    const response = await fetch(urlForecast);
+    const data = await response.json();
+    console.log(data);
+
+    const forecastContainer = document.getElementById("forecast-container");
+
+    data.daily.time.forEach((time, index) => {
+      const averageTemp = Number(
+        (data.daily.temperature_2m_max[index] +
+          data.daily.temperature_2m_min[index]) /
+          2
+      ).toFixed(1);
+      const forecastItem = document.createElement("li");
+      forecastItem.classList.add(
+        "w-1/8",
+        "border-2",
+        "rounded-3xl",
+        "px-6",
+        "py-2"
+      );
+      forecastItem.innerHTML = `
+        <div class="flex flex-col items-center gap-4">
+          <h1>${formatDay(new Date(time))}</h1>
+          <img src="./assets/weather-code/${
+            data.daily.weather_code[index]
+          }.png" alt="weather-code" class="h-16 w-16" />
+          <h1>${averageTemp} ${data.daily_units.temperature_2m_max}</h1>
+        </div>
+      `;
+      forecastContainer.appendChild(forecastItem);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+getDataForecast();
