@@ -39,6 +39,25 @@ const formatDay = (date) => {
   return date.toLocaleDateString("id-ID", { weekday: "long" });
 };
 
+const formatTime = (date) => {
+  return date.toLocaleTimeString("id-ID", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
+const getDayDuration = (sunrise, sunset) => {
+  const sunriseDate = new Date(sunrise);
+  const sunsetDate = new Date(sunset);
+  const duration = sunsetDate - sunriseDate;
+
+  const totalMinutes = Math.floor(duration / 1000 / 60);
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  return `${hours}.${minutes}`;
+};
+
 const weatherCodeDetails = {
   0: "Clear Sky",
   1: "Mainly Clear",
@@ -92,7 +111,21 @@ const getDataCurrent = async () => {
 
     const responseDaily = await fetch(urlDaily);
     const dataDaily = await responseDaily.json();
-    // console.log(dataDaily);
+    console.log(dataDaily);
+
+    const sunrise = document.getElementById("sunrise");
+    sunrise.textContent = formatTime(new Date(dataDaily.daily.sunrise[0]));
+
+    const sunset = document.getElementById("sunset");
+    sunset.textContent = formatTime(new Date(dataDaily.daily.sunset[0]));
+
+    const lengthDay = document.getElementById("wind-direction");
+    lengthDay.innerHTML = `<img src="./assets/wind-direction.png" alt="weather-code" class="h-12 rotate-[${dataDaily.daily.wind_direction_10m_dominant[0]}deg]" />
+    <h1  class="text-xl">${dataDaily.daily.wind_speed_10m_max[0]} ${dataDaily.daily_units.wind_speed_10m_max}</h1>
+    `;
+
+    const uvIndex = document.getElementById("uv-index");
+    uvIndex.textContent = `${dataDaily.daily.uv_index_max[0]}`;
 
     const currentTempRange = document.getElementById("current-temp-range");
     currentTempRange.textContent =
@@ -125,7 +158,7 @@ const getDataForecast = async () => {
   try {
     const response = await fetch(urlForecast);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     const forecastContainer = document.getElementById("forecast-container");
     data.daily.time.forEach((time, index) => {
