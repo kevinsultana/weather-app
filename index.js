@@ -135,20 +135,22 @@ const getDataForecast = async () => {
           2
       ).toFixed(1);
       const forecastItem = document.createElement("li");
-      forecastItem.classList.add(
-        "w-1/8",
-        "border-2",
-        "rounded-3xl",
-        "px-6",
-        "py-2"
-      );
+      forecastItem.classList.add("w-1/8", "border-2", "rounded-3xl", "p-2");
       forecastItem.innerHTML = `
-        <div class="flex flex-col items-center gap-4">
-          <h1>${formatDay(new Date(time))}</h1>
+        <div class="flex flex-col items-center justify-center gap-2">
+          <h1 class="font-semibold text-lg">${formatDay(new Date(time))}</h1>
+          <p class="text-sm">${formatDate(new Date(time))}</p>
           <img src="./assets/weather-code/${
             data.daily.weather_code[index]
-          }.png" alt="weather-code" class="h-16 w-16" />
-          <h1>${averageTemp} ${data.daily_units.temperature_2m_max}</h1>
+          }.png" alt="weather-code" class="h-16 w-16 object-cover" />
+          <h1 class=" text-sm">${averageTemp} ${
+        data.daily_units.temperature_2m_max
+      }</h1>
+          <h1 class="text-xs">H: ${data.daily.temperature_2m_max[index]}${
+        data.daily_units.temperature_2m_max
+      } <br/> L : ${data.daily.temperature_2m_min[index]}${
+        data.daily_units.temperature_2m_min
+      } </h1>
         </div>
       `;
       forecastContainer.appendChild(forecastItem);
