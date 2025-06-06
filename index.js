@@ -155,6 +155,17 @@ const getDataForecast = async () => {
       `;
       forecastContainer.appendChild(forecastItem);
     });
+
+    const tomorrowItemWeatherCode = document.getElementById(
+      "tomorrow-item-weather-code"
+    );
+    tomorrowItemWeatherCode.textContent =
+      weatherCodeDetails[data.daily.weather_code[1]];
+
+    const tomorrowItemWeatherCodeImage = document.getElementById(
+      "tomorrow-item-weather-code-image"
+    );
+    tomorrowItemWeatherCodeImage.src = `./assets/weather-code/${data.daily.weather_code[1]}.png`;
   } catch (error) {
     console.log(error);
   }
