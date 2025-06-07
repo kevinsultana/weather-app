@@ -19,11 +19,50 @@ toggleDark.addEventListener("change", function () {
   document.documentElement.classList.toggle("dark");
 });
 
-const urlCurrent =
-  "https://api.open-meteo.com/v1/forecast?latitude=-6.18&longitude=106.8223&current=temperature_2m,is_day,weather_code&timezone=auto";
+const urlGetLatLon = (value) => {
+  return `https://api.opencagedata.com/geocode/v1/json?q=${value}&key=1f191637f9e8463f8c43bef4536e84e8`;
+};
 
-const urlDaily =
-  "https://api.open-meteo.com/v1/forecast?latitude=-6.18&longitude=106.8223&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max,uv_index_clear_sky_max,wind_direction_10m_dominant,wind_speed_10m_max,sunrise,sunset&timezone=auto&forecast_days=1";
+const searchAndUpdateWeather = async (cityName) => {
+  const url = urlGetLatLon(cityName);
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    // if error buat nanti disini
+
+    const latData = data.results[0].geometry.lat;
+    const lonData = data.results[0].geometry.lng;
+    const cityNameData = data.results[0].components.city;
+
+    await getDataCurrent(latData, lonData, cityNameData);
+    await getDataForecast(latData, lonData);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+document
+  .getElementById("searchbar")
+  .addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      const city = event.target.value;
+      searchAndUpdateWeather(city);
+    }
+  });
+
+document.getElementById("search-btn").addEventListener("click", function () {
+  const city = document.getElementById("searchbar").value;
+  searchAndUpdateWeather(city);
+});
+
+const urlCurrent = (latData, lonData) => {
+  return `https://api.open-meteo.com/v1/forecast?latitude=${latData}&longitude=${lonData}&current=temperature_2m,is_day,weather_code&timezone=auto`;
+};
+
+const urlDaily = (latData, lonData) => {
+  return `https://api.open-meteo.com/v1/forecast?latitude=${latData}&longitude=${lonData}&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max,uv_index_clear_sky_max,wind_direction_10m_dominant,wind_speed_10m_max,sunrise,sunset&timezone=auto&forecast_days=1`;
+};
 
 const formatter = new Intl.DateTimeFormat("id-ID", {
   day: "numeric",
@@ -89,13 +128,13 @@ const weatherCodeDetails = {
   99: "Heavy Thunderstorm",
 };
 
-const getDataCurrent = async () => {
+const getDataCurrent = async (latData, lonData, cityName) => {
   try {
-    const response = await fetch(urlCurrent);
+    const response = await fetch(urlCurrent(latData, lonData));
     const dataCurrent = await response.json();
-    // console.log(dataCurrent);
+
     const currentLocation = document.getElementById("current-location");
-    currentLocation.textContent = "Jakarta";
+    currentLocation.textContent = cityName;
 
     const currentDate = document.getElementById("current-date");
     currentDate.textContent = formatDate(new Date(dataCurrent.current.time));
@@ -109,9 +148,9 @@ const getDataCurrent = async () => {
       " " +
       dataCurrent.current_units.temperature_2m;
 
-    const responseDaily = await fetch(urlDaily);
+    const responseDaily = await fetch(urlDaily(latData, lonData));
     const dataDaily = await responseDaily.json();
-    // console.log(dataDaily);
+    console.log(dataDaily);
 
     const sunrise = document.getElementById("sunrise");
     sunrise.textContent = formatTime(new Date(dataDaily.daily.sunrise[0]));
@@ -149,18 +188,18 @@ const getDataCurrent = async () => {
   }
 };
 
-getDataCurrent();
+const urlForecast = (latData, lonData) => {
+  return `https://api.open-meteo.com/v1/forecast?latitude=${latData}&longitude=${lonData}&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto`;
+};
 
-const urlForecast =
-  "https://api.open-meteo.com/v1/forecast?latitude=-6.18&longitude=106.8223&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto";
-
-const getDataForecast = async () => {
+const getDataForecast = async (latData, lonData) => {
   try {
-    const response = await fetch(urlForecast);
+    const response = await fetch(urlForecast(latData, lonData));
     const data = await response.json();
-    // console.log(data);
 
     const forecastContainer = document.getElementById("forecast-container");
+    forecastContainer.innerHTML = "";
+
     data.daily.time.forEach((time, index) => {
       const averageTemp = Number(
         (data.daily.temperature_2m_max[index] +
@@ -216,5 +255,3 @@ const getDataForecast = async () => {
     console.log(error);
   }
 };
-
-getDataForecast();
