@@ -19,39 +19,39 @@ toggleDark.addEventListener("change", function () {
   document.documentElement.classList.toggle("dark");
 });
 
-const getLocationOnLoad = () => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
+// const getLocationOnLoad = () => {
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(
+//       async (position) => {
+//         const lat = position.coords.latitude;
+//         const lon = position.coords.longitude;
 
-        try {
-          // Dapatkan nama kota dari OpenCage
-          const response = await fetch(
-            `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=1f191637f9e8463f8c43bef4536e84e8`
-          );
-          const data = await response.json();
-          const cityName =
-            data.results[0].components.city ||
-            data.results[0].components.town ||
-            data.results[0].components.village ||
-            "Lokasi Anda";
+//         try {
+//           // Dapatkan nama kota dari OpenCage
+//           const response = await fetch(
+//             `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=1f191637f9e8463f8c43bef4536e84e8`
+//           );
+//           const data = await response.json();
+//           const cityName =
+//             data.results[0].components.city ||
+//             data.results[0].components.town ||
+//             data.results[0].components.village ||
+//             "Lokasi Anda";
 
-          await getDataCurrent(lat, lon, cityName);
-          await getDataForecast(lat, lon);
-        } catch (error) {
-          console.log("Gagal mengambil data berdasarkan lokasi:", error);
-        }
-      },
-      (error) => {
-        console.log("Gagal mendapatkan lokasi pengguna:", error);
-      }
-    );
-  } else {
-    console.log("Geolocation tidak didukung oleh browser ini.");
-  }
-};
+//           await getDataCurrent(lat, lon, cityName);
+//           await getDataForecast(lat, lon);
+//         } catch (error) {
+//           console.log("Gagal mengambil data berdasarkan lokasi:", error);
+//         }
+//       },
+//       (error) => {
+//         console.log("Gagal mendapatkan lokasi pengguna:", error);
+//       }
+//     );
+//   } else {
+//     console.log("Geolocation tidak didukung oleh browser ini.");
+//   }
+// };
 
 // getLocationOnLoad();
 
@@ -64,12 +64,17 @@ const searchAndUpdateWeather = async (cityName) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
+    console.log(data);
 
     // if error buat nanti disini
 
     const latData = data.results[0].geometry.lat;
     const lonData = data.results[0].geometry.lng;
-    const cityNameData = data.results[0].components.city;
+    const cityNameData =
+      data.results[0].components.city ||
+      data.results[0].components.state ||
+      data.results[0].components.village ||
+      "Lokasi Anda";
 
     await getDataCurrent(latData, lonData, cityNameData);
     await getDataForecast(latData, lonData);
@@ -84,12 +89,14 @@ document
     if (event.key === "Enter") {
       const city = event.target.value;
       searchAndUpdateWeather(city);
+      document.getElementById("searchbar").value = "";
     }
   });
 
 document.getElementById("search-btn").addEventListener("click", function () {
   const city = document.getElementById("searchbar").value;
   searchAndUpdateWeather(city);
+  document.getElementById("searchbar").value = "";
 });
 
 const urlCurrent = (latData, lonData) => {
@@ -111,7 +118,7 @@ const formatDate = (date) => {
 };
 
 const formatDay = (date) => {
-  return date.toLocaleDateString("id-ID", { weekday: "long" });
+  return date.toLocaleDateString("en-ID", { weekday: "long" });
 };
 
 const formatTime = (date) => {
@@ -242,13 +249,7 @@ const getDataForecast = async (latData, lonData) => {
           2
       ).toFixed(1);
       const forecastItem = document.createElement("li");
-      forecastItem.classList.add(
-        "w-1/8",
-        "border-2",
-        "rounded-3xl",
-        "p-2",
-        "px-4"
-      );
+      forecastItem.classList.add("border-2", "rounded-3xl", "p-2", "px-4");
       forecastItem.innerHTML = `
         <div class="flex flex-col items-center justify-center gap-2">
           <h1 class="font-semibold text-lg">${formatDay(new Date(time))}</h1>
@@ -335,7 +336,7 @@ const allOtherCities = document.getElementById("all-other-cities");
 allCitiesData.forEach((city) => {
   const cityCard = document.createElement("li");
   cityCard.innerHTML = `
-    <div onclick="searchAndUpdateWeather('${city}')" class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95">
+    <div onclick="closeModalAllCity();searchAndUpdateWeather('${city}')" class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95">
     <p class="text-3xl mb-4">${city}</p>
       <div class="flex items-end mb-4">
         <h1 class="text-5xl">25°</h1>
