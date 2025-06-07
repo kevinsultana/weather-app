@@ -69,7 +69,7 @@
     <!-- main content -->
     <div class="flex justify-between mx-16">
       <!-- left content -->
-      <div class="w-screen">
+      <div class="w-3/5">
         <!-- upper -->
         <div class="bg-gray-500 rounded-xl p-7 my-4">
           <div class="flex justify-between">
@@ -224,7 +224,7 @@
       </div>
 
       <!-- right content -->
-      <div>
+      <div class="w-2/5">
         <!-- top -->
         <div class="bg-gray-500 rounded-xl ml-6 mt-4 p-6">
           <h1 class="text-xl text-white mb-4">Today Highlight</h1>
@@ -258,16 +258,33 @@
         <div class="ml-2 p-6">
           <!-- other cities -->
           <div class="flex justify-between items-center mb-4">
-            <h1 class="text-xl text-gray-600">Other Cities</h1>
-            <button class="text-gray-400">Show All</button>
+            <h1 class="text-xl text-gray-600 dark:text-white">Other Cities</h1>
+            <button
+              id="show-modal-all-city"
+              class="text-gray-600 dark:text-white"
+            >
+              Show All
+            </button>
           </div>
 
           <!-- cardlist -->
           <div>
-            <ul class="flex flex-wrap gap-4">
+            <ul id="all-city-container" class="grid grid-cols-2 gap-4">
+              <!-- <li>
+                <div class="w-auto h-auto text-white bg-slate-400 rounded-3xl">
+                  <div class="flex items-end mb-4">
+                    <h1 class="text-5xl">25°</h1>
+                    <p class="text-xs">H:30° L:20°</p>
+                  </div>
+                  <p class="text-xl mb-4">Jakarta</p>
+                  <div class="flex justify-end relative bottom-8">
+                    <img src="./assets/Sun.png" alt="sun" />
+                  </div>
+                </div>
+              </li>
               <li>
                 <div
-                  class="w-[235px] h-[170px] p-4 text-white bg-slate-400 rounded-3xl"
+                  class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl"
                 >
                   <div class="flex items-end mb-4">
                     <h1 class="text-5xl">25°</h1>
@@ -281,7 +298,7 @@
               </li>
               <li>
                 <div
-                  class="w-[235px] h-[170px] p-4 text-white bg-slate-400 rounded-3xl"
+                  class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl"
                 >
                   <div class="flex items-end mb-4">
                     <h1 class="text-5xl">25°</h1>
@@ -295,7 +312,7 @@
               </li>
               <li>
                 <div
-                  class="w-[235px] h-[170px] p-4 text-white bg-slate-400 rounded-3xl"
+                  class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl"
                 >
                   <div class="flex items-end mb-4">
                     <h1 class="text-5xl">25°</h1>
@@ -306,21 +323,7 @@
                     <img src="./assets/Sun.png" alt="sun" />
                   </div>
                 </div>
-              </li>
-              <li>
-                <div
-                  class="w-[235px] h-[170px] p-4 text-white bg-slate-400 rounded-3xl"
-                >
-                  <div class="flex items-end mb-4">
-                    <h1 class="text-5xl">25°</h1>
-                    <p class="text-xs">H:30° L:20°</p>
-                  </div>
-                  <p class="text-xl mb-4">Jakarta</p>
-                  <div class="flex justify-end relative bottom-8">
-                    <img src="./assets/Sun.png" alt="sun" />
-                  </div>
-                </div>
-              </li>
+              </li> -->
             </ul>
           </div>
         </div>

@@ -19,6 +19,42 @@ toggleDark.addEventListener("change", function () {
   document.documentElement.classList.toggle("dark");
 });
 
+const getLocationOnLoad = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        try {
+          // Dapatkan nama kota dari OpenCage
+          const response = await fetch(
+            `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=1f191637f9e8463f8c43bef4536e84e8`
+          );
+          const data = await response.json();
+          const cityName =
+            data.results[0].components.city ||
+            data.results[0].components.town ||
+            data.results[0].components.village ||
+            "Lokasi Anda";
+
+          await getDataCurrent(lat, lon, cityName);
+          await getDataForecast(lat, lon);
+        } catch (error) {
+          console.log("Gagal mengambil data berdasarkan lokasi:", error);
+        }
+      },
+      (error) => {
+        console.log("Gagal mendapatkan lokasi pengguna:", error);
+      }
+    );
+  } else {
+    console.log("Geolocation tidak didukung oleh browser ini.");
+  }
+};
+
+// getLocationOnLoad();
+
 const urlGetLatLon = (value) => {
   return `https://api.opencagedata.com/geocode/v1/json?q=${value}&key=1f191637f9e8463f8c43bef4536e84e8`;
 };
@@ -150,7 +186,6 @@ const getDataCurrent = async (latData, lonData, cityName) => {
 
     const responseDaily = await fetch(urlDaily(latData, lonData));
     const dataDaily = await responseDaily.json();
-    console.log(dataDaily);
 
     const sunrise = document.getElementById("sunrise");
     sunrise.textContent = formatTime(new Date(dataDaily.daily.sunrise[0]));
@@ -255,3 +290,42 @@ const getDataForecast = async (latData, lonData) => {
     console.log(error);
   }
 };
+
+// getDataCurrent(-0.9247587, 100.348441, "Jakarta");
+// getDataForecast(-0.9247587, 100.348441);
+
+const someOtherCitiesData = ["Jakarta", "Bandung", "Surabaya", "Semarang"];
+
+const allCitiesData = [
+  "Jakarta",
+  "Bandung",
+  "Surabaya",
+  "Semarang",
+  "Yogyakarta",
+  "Bali",
+  "Palembang",
+  "Bandar Lampung",
+  "Medan",
+  "Padang",
+  "Pekanbaru",
+  "Aceh",
+];
+
+const someOtherCities = document.getElementById("all-city-container");
+
+someOtherCitiesData.forEach((city) => {
+  const cityCard = document.createElement("li");
+  cityCard.innerHTML = `
+    <div onclick="searchAndUpdateWeather('${city}')" class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-xl hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95">
+    <p class="text-3xl mb-4">${city}</p>
+      <div class="flex items-end mb-4">
+        <h1 class="text-5xl">25°</h1>
+        <p class="text-xs">H:30° L:20°</p>
+      </div>
+      <div class="flex justify-end relative bottom-8">
+        <img src="./assets/Sun.png" alt="sun" />
+      </div>
+    </div>
+  `;
+  someOtherCities.appendChild(cityCard);
+});
