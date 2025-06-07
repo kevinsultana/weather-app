@@ -74,10 +74,12 @@ const searchAndUpdateWeather = async (cityName) => {
       data.results[0].components.city ||
       data.results[0].components.state ||
       data.results[0].components.village ||
-      "Lokasi Anda";
+      data.results[0].components.country;
+    const countryCode = data.results[0].components.country_code;
 
     await getDataCurrent(latData, lonData, cityNameData);
     await getDataForecast(latData, lonData);
+    await getDataOtherCities(countryCode);
   } catch (error) {
     console.log(error);
   }
@@ -175,6 +177,7 @@ const getDataCurrent = async (latData, lonData, cityName) => {
   try {
     const response = await fetch(urlCurrent(latData, lonData));
     const dataCurrent = await response.json();
+    // console.log(dataCurrent);
 
     const currentLocation = document.getElementById("current-location");
     currentLocation.textContent = cityName;
@@ -193,6 +196,7 @@ const getDataCurrent = async (latData, lonData, cityName) => {
 
     const responseDaily = await fetch(urlDaily(latData, lonData));
     const dataDaily = await responseDaily.json();
+    // console.log(dataDaily);
 
     const sunrise = document.getElementById("sunrise");
     sunrise.textContent = formatTime(new Date(dataDaily.daily.sunrise[0]));
@@ -302,7 +306,7 @@ const someOtherCities = document.getElementById("some-other-cities");
 someOtherCitiesData.forEach((city) => {
   const cityCard = document.createElement("li");
   cityCard.innerHTML = `
-    <div onclick="searchAndUpdateWeather('${city}')" class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95">
+    <div onclick="searchAndUpdateWeather('${city}')" class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80">
     <p class="text-3xl mb-4">${city}</p>
       <div class="flex items-end mb-4">
         <h1 class="text-5xl">25°</h1>
@@ -360,4 +364,16 @@ const showModalAllCity = () => {
 const closeModalAllCity = () => {
   modalOverlay.classList.add("hidden");
   modalOverlay.classList.remove("flex");
+};
+
+const urlDataOtherCities = (countryId) => {
+  return `http://api.geonames.org/searchJSON?country=${countryId}&featureClass=P&maxRows=12&orderby=population&username=kevinsul22`;
+};
+
+const getDataOtherCities = async (countryId) => {
+  try {
+    const response = await fetch(urlDataOtherCities(countryId));
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {}
 };

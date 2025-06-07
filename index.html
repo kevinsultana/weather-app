@@ -20,11 +20,13 @@
     <link rel="stylesheet" href="style.css" />
     <title>Weather Web App</title>
   </head>
-  <body class="bg-blue-100 dark:bg-blue-950 transition-all duration-300">
+  <body
+    class="max-h-screen bg-gray-100 text-gray-900 dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300"
+  >
     <!-- navbar -->
-    <header class="px-16">
+    <header class="px-16 mt-2">
       <div
-        class="bg-gray-400 rounded-xl px-4 w-full flex items-center justify-between text-white"
+        class="bg-white shadow-lg dark:bg-gray-800 rounded-xl px-4 w-full flex items-center justify-between text-black dark:text-white"
       >
         <!-- logo -->
         <div class="w-1/3 flex items-center">
@@ -33,14 +35,17 @@
         </div>
 
         <!-- searchbar -->
-        <div class="w-1/3 flex justify-center">
+        <div class="w-1/3 flex justify-center gap-1">
           <input
             id="searchbar"
             type="text"
             placeholder="Search Your City"
-            class="px-4 py-1 border-2 rounded-xl w-full max-w-xs placeholder:text-slate-700 text-black"
+            class="px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-xl w-full max-w-xs placeholder:text-slate-700 dark:placeholder:text-gray-400 text-gray-900 dark:text-gray-100"
           />
-          <button id="search-btn" class="ml-2">
+          <button
+            id="search-btn"
+            class="ml-2 px-2 text-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-xl"
+          >
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
         </div>
@@ -71,7 +76,7 @@
       <!-- left content -->
       <div class="w-3/5">
         <!-- upper -->
-        <div class="bg-gray-500 rounded-xl p-7 my-4">
+        <div class="bg-gray-500 rounded-xl p-7 my-4 bg-opacity-50">
           <div class="flex justify-between">
             <!-- location date temp -->
             <div class="flex flex-col gap-16 text-white">
@@ -144,7 +149,9 @@
         </div>
 
         <!-- lower -->
-        <div class="flex flex-col bg-gray-500 rounded-xl p-4 gap-2 mb-8">
+        <div
+          class="flex flex-col bg-gray-500 rounded-xl p-4 gap-2 mb-8 bg-opacity-50"
+        >
           <!-- title -->
           <h1 class="text-2xl text-white">Forecast Weather</h1>
 
@@ -226,18 +233,24 @@
       <!-- right content -->
       <div class="w-2/5">
         <!-- top -->
-        <div class="bg-gray-500 rounded-xl ml-6 mt-4 p-6">
+        <div class="bg-gray-500 rounded-xl ml-6 mt-4 p-6 bg-opacity-50">
           <h1 class="text-xl text-white mb-4">Today Highlight</h1>
           <div class="grid grid-cols-2 gap-6">
-            <div class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl">
+            <div
+              class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl bg-opacity-80"
+            >
               <p class="text-xl mb-4">Sunrise</p>
               <h1 id="sunrise" class="text-4xl"></h1>
             </div>
-            <div class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl">
+            <div
+              class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl bg-opacity-80"
+            >
               <p class="text-xl mb-4">Sunset</p>
               <h1 id="sunset" class="text-4xl"></h1>
             </div>
-            <div class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl">
+            <div
+              class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl bg-opacity-80"
+            >
               <p class="text-xl mb-4">Wind Direction</p>
               <div
                 id="wind-direction"
@@ -247,7 +260,9 @@
                 <h1  class="text-4xl">289</h1> -->
               </div>
             </div>
-            <div class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl">
+            <div
+              class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl bg-opacity-80"
+            >
               <p class="text-xl mb-4">UV Index</p>
               <h1 id="uv-index" class="text-4xl"></h1>
             </div>
@@ -337,7 +352,7 @@
       class="fixed hidden items-center justify-center bg-black bg-opacity-50 inset-0 z-10"
     >
       <div
-        class="bg-white rounded-3xl p-6 w-2/3 max-h-[80vh] overflow-y-auto relative"
+        class="bg-white dark:bg-gray-800 rounded-3xl p-6 w-2/3 max-h-[80vh] overflow-y-auto relative"
       >
         <div class="flex justify-between items-center mb-6">
           <h1 class="text-2xl font-bold">Weather in other cities</h1>
