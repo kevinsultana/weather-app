@@ -111,7 +111,7 @@ const getDataCurrent = async () => {
 
     const responseDaily = await fetch(urlDaily);
     const dataDaily = await responseDaily.json();
-    console.log(dataDaily);
+    // console.log(dataDaily);
 
     const sunrise = document.getElementById("sunrise");
     sunrise.textContent = formatTime(new Date(dataDaily.daily.sunrise[0]));
@@ -168,7 +168,13 @@ const getDataForecast = async () => {
           2
       ).toFixed(1);
       const forecastItem = document.createElement("li");
-      forecastItem.classList.add("w-1/8", "border-2", "rounded-3xl", "p-2");
+      forecastItem.classList.add(
+        "w-1/8",
+        "border-2",
+        "rounded-3xl",
+        "p-2",
+        "px-4"
+      );
       forecastItem.innerHTML = `
         <div class="flex flex-col items-center justify-center gap-2">
           <h1 class="font-semibold text-lg">${formatDay(new Date(time))}</h1>
@@ -199,6 +205,13 @@ const getDataForecast = async () => {
       "tomorrow-item-weather-code-image"
     );
     tomorrowItemWeatherCodeImage.src = `./assets/weather-code/${data.daily.weather_code[1]}.png`;
+
+    const tomorrowItemTemp = document.getElementById("tomorrow-item-temp");
+    const averageTemp = Number(
+      (data.daily.temperature_2m_max[1] + data.daily.temperature_2m_min[1]) / 2
+    ).toFixed(1);
+    tomorrowItemTemp.textContent =
+      averageTemp + data.daily_units.temperature_2m_max;
   } catch (error) {
     console.log(error);
   }

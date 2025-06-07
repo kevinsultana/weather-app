@@ -140,13 +140,13 @@
         </div>
 
         <!-- lower -->
-        <div class="flex flex-col bg-gray-500 rounded-xl p-4 gap-5 mb-8">
+        <div class="flex flex-col bg-gray-500 rounded-xl p-4 gap-2 mb-8">
           <!-- title -->
           <h1 class="text-2xl text-white">Forecast Weather</h1>
 
           <!-- cards -->
           <div class="my-4 text-white">
-            <ul id="forecast-container" class="flex gap-2">
+            <ul id="forecast-container" class="flex gap-2 w-full">
               <!-- <li class="w-1/8 border-2 rounded-3xl p-2">
                 <div class="flex flex-col items-center gap-4">
                   <h1>Monday</h1>
@@ -204,11 +204,9 @@
             <div class="flex items-center gap-8 text-white">
               <div>
                 <h1 class="text-2xl">Tomorrow</h1>
-                <p id="tomorrow-item-weather-code" class="text-lg">
-                  Thunder Storm
-                </p>
+                <p id="tomorrow-item-weather-code" class="text-lg"></p>
               </div>
-              <h1 class="text-5xl">25°C</h1>
+              <h1 id="tomorrow-item-temp" class="text-5xl"></h1>
             </div>
             <img
               id="tomorrow-item-weather-code-image"
