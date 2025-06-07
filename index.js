@@ -296,27 +296,12 @@ const getDataForecast = async (latData, lonData) => {
 
 const someOtherCitiesData = ["Jakarta", "Bandung", "Surabaya", "Semarang"];
 
-const allCitiesData = [
-  "Jakarta",
-  "Bandung",
-  "Surabaya",
-  "Semarang",
-  "Yogyakarta",
-  "Bali",
-  "Palembang",
-  "Bandar Lampung",
-  "Medan",
-  "Padang",
-  "Pekanbaru",
-  "Aceh",
-];
-
-const someOtherCities = document.getElementById("all-city-container");
+const someOtherCities = document.getElementById("some-other-cities");
 
 someOtherCitiesData.forEach((city) => {
   const cityCard = document.createElement("li");
   cityCard.innerHTML = `
-    <div onclick="searchAndUpdateWeather('${city}')" class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-xl hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95">
+    <div onclick="searchAndUpdateWeather('${city}')" class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95">
     <p class="text-3xl mb-4">${city}</p>
       <div class="flex items-end mb-4">
         <h1 class="text-5xl">25°</h1>
@@ -329,3 +314,49 @@ someOtherCitiesData.forEach((city) => {
   `;
   someOtherCities.appendChild(cityCard);
 });
+
+const allCitiesData = [
+  "Yogyakarta",
+  "Bali",
+  "Palembang",
+  "Lampung",
+  "Medan",
+  "Padang",
+  "Pekanbaru",
+  "Aceh",
+  "Jakarta",
+  "Bandung",
+  "Surabaya",
+  "Semarang",
+];
+
+const allOtherCities = document.getElementById("all-other-cities");
+
+allCitiesData.forEach((city) => {
+  const cityCard = document.createElement("li");
+  cityCard.innerHTML = `
+    <div onclick="searchAndUpdateWeather('${city}')" class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95">
+    <p class="text-3xl mb-4">${city}</p>
+      <div class="flex items-end mb-4">
+        <h1 class="text-5xl">25°</h1>
+        <p class="text-xs">H:30° L:20°</p>
+      </div>
+      <div class="flex justify-end relative bottom-8">
+        <img src="./assets/Sun.png" alt="sun" />
+      </div>
+    </div>
+  `;
+  allOtherCities.appendChild(cityCard);
+});
+
+const modalOverlay = document.getElementById("modal-overlay");
+
+const showModalAllCity = () => {
+  modalOverlay.classList.remove("hidden");
+  modalOverlay.classList.add("flex");
+};
+
+const closeModalAllCity = () => {
+  modalOverlay.classList.add("hidden");
+  modalOverlay.classList.remove("flex");
+};

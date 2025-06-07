@@ -261,6 +261,7 @@
             <h1 class="text-xl text-gray-600 dark:text-white">Other Cities</h1>
             <button
               id="show-modal-all-city"
+              onclick="showModalAllCity()"
               class="text-gray-600 dark:text-white"
             >
               Show All
@@ -269,7 +270,7 @@
 
           <!-- cardlist -->
           <div>
-            <ul id="all-city-container" class="grid grid-cols-2 gap-4">
+            <ul id="some-other-cities" class="grid grid-cols-2 gap-4">
               <!-- <li>
                 <div class="w-auto h-auto text-white bg-slate-400 rounded-3xl">
                   <div class="flex items-end mb-4">
@@ -327,6 +328,42 @@
             </ul>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- modal Popup show all city -->
+    <div
+      id="modal-overlay"
+      class="fixed hidden items-center justify-center bg-black bg-opacity-50 inset-0 z-10 transition-all duration-700 ease-in-out"
+    >
+      <div
+        class="bg-white rounded-3xl p-6 w-2/3 max-h-[80vh] overflow-y-auto transition-all duration-700 ease-in-out relative"
+      >
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-2xl font-bold">Weather in other cities</h1>
+          <button
+            onclick="closeModalAllCity()"
+            class="text-gray-600 text-4xl font-bold hover:text-black"
+          >
+            &times;
+          </button>
+        </div>
+        <ul id="all-other-cities" class="grid grid-cols-4 gap-4">
+          <!-- <li>
+            <div
+              class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95"
+            >
+              <p class="text-3xl mb-4">Jakarta</p>
+              <div class="flex items-end mb-4">
+                <h1 class="text-5xl">25°</h1>
+                <p class="text-xs">H:30° L:20°</p>
+              </div>
+              <div class="flex justify-end relative bottom-8">
+                <img src="./assets/Sun.png" alt="sun" />
+              </div>
+            </div>
+          </li> -->
+        </ul>
       </div>
     </div>
     <script src="index.js"></script>
