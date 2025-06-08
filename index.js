@@ -64,7 +64,7 @@ const searchAndUpdateWeather = async (cityName) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     // if error buat nanti disini
 
@@ -80,6 +80,7 @@ const searchAndUpdateWeather = async (cityName) => {
     await getDataCurrent(latData, lonData, cityNameData);
     await getDataForecast(latData, lonData);
     await getDataOtherCities(countryCode);
+    checkDataOtherCities();
   } catch (error) {
     console.log(error);
   }
@@ -299,26 +300,109 @@ const getDataForecast = async (latData, lonData) => {
 // getDataCurrent(-0.9247587, 100.348441, "Jakarta");
 // getDataForecast(-0.9247587, 100.348441);
 
-const someOtherCitiesData = ["Jakarta", "Bandung", "Surabaya", "Semarang"];
+const modalOverlay = document.getElementById("modal-overlay");
+
+const showModalAllCity = () => {
+  modalOverlay.classList.remove("hidden");
+  modalOverlay.classList.add("flex");
+};
+
+const closeModalAllCity = () => {
+  modalOverlay.classList.add("hidden");
+  modalOverlay.classList.remove("flex");
+};
+
+const urlDataOtherCities = (countryId) => {
+  return `http://api.geonames.org/searchJSON?country=${countryId}&featureClass=P&maxRows=12&orderby=population&username=kevinsul22`;
+};
+
+let dataOtherCities = [];
+
+// console.log(dataOtherCities[0].geonames);
+
+const getDataOtherCities = async (countryId) => {
+  try {
+    const response = await fetch(urlDataOtherCities(countryId));
+    const data = await response.json();
+    dataOtherCities = data.geonames;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// const someOtherCitiesData = ["Jakarta", "Bandung", "Surabaya", "Semarang"];
 
 const someOtherCities = document.getElementById("some-other-cities");
 
-someOtherCitiesData.forEach((city) => {
-  const cityCard = document.createElement("li");
-  cityCard.innerHTML = `
-    <div onclick="searchAndUpdateWeather('${city}')" class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80">
-    <p class="text-3xl mb-4">${city}</p>
-      <div class="flex items-end mb-4">
-        <h1 class="text-5xl">25°</h1>
-        <p class="text-xs">H:30° L:20°</p>
-      </div>
-      <div class="flex justify-end relative bottom-8">
-        <img src="./assets/Sun.png" alt="sun" />
-      </div>
-    </div>
-  `;
-  someOtherCities.appendChild(cityCard);
-});
+const urlDataCurrent = (lat, lon) => {
+  return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&current=temperature_2m&forecast_days=1`;
+};
+
+const getDataCurrentCities = async (lat, lon) => {
+  try {
+    const response = await fetch(urlDataCurrent(lat, lon));
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+let prevDataOtherCities = [];
+
+const checkDataOtherCities = () => {
+  if (dataOtherCities.length === 0) {
+    console.log("data kodong, search dulu");
+    return;
+  }
+
+  const isSameData =
+    JSON.stringify(dataOtherCities) === JSON.stringify(prevDataOtherCities);
+  if (isSameData) {
+    console.log("Data sama, tidak perlu fetch ulang.");
+    return;
+  }
+
+  prevDataOtherCities = JSON.parse(JSON.stringify(dataOtherCities));
+
+  someOtherCities.innerHTML = "";
+
+  (async () => {
+    for (let i = 0; i < 4; i++) {
+      const latData = dataOtherCities[i].lat;
+      const lonData = dataOtherCities[i].lng;
+      const data = await getDataCurrentCities(latData, lonData);
+      const currentTemp = data?.current?.temperature_2m;
+      const tempUnits = data?.current_units?.temperature_2m;
+      const maxTemp = data?.daily?.temperature_2m_max[0];
+      const minTemp = data?.daily?.temperature_2m_min[0];
+      const weatherCode = data?.daily?.weather_code[0];
+
+      const cityCard = document.createElement("li");
+      cityCard.innerHTML = `
+        <div onclick="searchAndUpdateWeather('${
+          dataOtherCities[i].name
+        }')" class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80">
+          <p class="text-3xl mb-4">${dataOtherCities[i].name}</p>
+          <div class="flex justify-between items-center mb-4">
+            <div class="flex flex-col mb-4">
+              <h1 class="text-4xl mb-6">${Math.round(
+                currentTemp
+              )}${tempUnits}</h1>
+              <p class="text-xs">H:${maxTemp} ${tempUnits} L:${minTemp} ${tempUnits}</p>
+            </div>
+            <div class="flex bottom-6 relative">
+              <img src="./assets/weather-code/${weatherCode}.png" alt="sun" class="w-20 h-20 object-fill" />
+            </div>
+          </div>
+        </div>
+      `;
+      someOtherCities.appendChild(cityCard);
+    }
+  })();
+};
+
+// checkDataOtherCities();
 
 const allCitiesData = [
   "Yogyakarta",
@@ -353,27 +437,3 @@ allCitiesData.forEach((city) => {
   `;
   allOtherCities.appendChild(cityCard);
 });
-
-const modalOverlay = document.getElementById("modal-overlay");
-
-const showModalAllCity = () => {
-  modalOverlay.classList.remove("hidden");
-  modalOverlay.classList.add("flex");
-};
-
-const closeModalAllCity = () => {
-  modalOverlay.classList.add("hidden");
-  modalOverlay.classList.remove("flex");
-};
-
-const urlDataOtherCities = (countryId) => {
-  return `http://api.geonames.org/searchJSON?country=${countryId}&featureClass=P&maxRows=12&orderby=population&username=kevinsul22`;
-};
-
-const getDataOtherCities = async (countryId) => {
-  try {
-    const response = await fetch(urlDataOtherCities(countryId));
-    const data = await response.json();
-    console.log(data);
-  } catch (error) {}
-};
