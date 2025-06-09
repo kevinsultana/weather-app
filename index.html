@@ -83,7 +83,7 @@
         <div class="bg-gray-500 rounded-xl p-6 my-4 bg-opacity-50">
           <div class="flex flex-col md:flex-row justify-between gap-4">
             <!-- location date temp -->
-            <div class="flex flex-col gap-8 text-white">
+            <div class="flex flex-col justify-between text-white">
               <div
                 class="flex gap-2 items-center border-2 rounded-full py-2 px-4 w-fit"
               >
@@ -110,7 +110,7 @@
             </div>
 
             <!-- toggle image weather -->
-            <div class="flex flex-col gap-4 text-white">
+            <div class="flex flex-col gap-6 justify-between text-white">
               <!-- toggle -->
               <div class="flex items-center gap-3 justify-end">
                 <p>C</p>
@@ -139,15 +139,16 @@
 
               <!-- image -->
               <div id="current-weather" class="flex justify-end">
-                <!-- <img src="./assets/cloudy.png" alt="cloudy" class="h-52" /> -->
+                <img src="./assets/not-found.png" alt="cloudy" class="h-52" />
               </div>
 
               <!-- description -->
               <div class="self-end">
                 <h1 id="current-weather-description" class="text-4xl">
                   <!-- Cloudy -->
+                  --
                 </h1>
-                <!-- <h4 class="text-lg text-right">Feels like 27°C</h4> -->
+                <h4 class="text-lg text-right">--</h4>
               </div>
             </div>
           </div>
@@ -162,71 +163,139 @@
 
           <!-- cards -->
           <div class="my-4 text-white">
-            <ul id="forecast-container" class="grid grid-cols-7 gap-2 w-full">
-              <!-- <li class="w-1/8 border-2 rounded-3xl p-2">
-                <div class="flex flex-col items-center gap-4">
-                  <h1>Monday</h1>
-                  <img src="./assets/cloudy.png" alt="cloudy" class="h-auto" />
-                  <h1>25°C</h1>
+            <ul
+              id="forecast-container"
+              class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 mt-4"
+            >
+              <li class="border-2 rounded-3xl p-2 bg-white/10 text-white">
+                <div class="flex flex-col items-center justify-center gap-2">
+                  <h1 class="font-semibold text-base sm:text-lg">--</h1>
+                  <p class="text-xs sm:text-sm">-- -- ----</p>
+                  <img
+                    src="./assets/not-found.png"
+                    alt="weather-code"
+                    class="h-12 w-12 sm:h-16 sm:w-16 object-cover"
+                  />
+                  <h1 class="text-sm sm:text-base">--°C</h1>
+                  <h1 class="text-xs sm:text-sm text-center">
+                    H: --°C <br />
+                    L : --°C
+                  </h1>
                 </div>
               </li>
-              <li class="w-1/8 border-2 rounded-3xl p-2">
-                <div class="flex flex-col items-center gap-4">
-                  <h1>Monday</h1>
-                  <img src="./assets/cloudy.png" alt="cloudy" class="h-auto" />
-                  <h1>25°C</h1>
+              <li class="border-2 rounded-3xl p-2 bg-white/10 text-white">
+                <div class="flex flex-col items-center justify-center gap-2">
+                  <h1 class="font-semibold text-base sm:text-lg">--</h1>
+                  <p class="text-xs sm:text-sm">-- -- ----</p>
+                  <img
+                    src="./assets/not-found.png"
+                    alt="weather-code"
+                    class="h-12 w-12 sm:h-16 sm:w-16 object-cover"
+                  />
+                  <h1 class="text-sm sm:text-base">--°C</h1>
+                  <h1 class="text-xs sm:text-sm text-center">
+                    H: --°C <br />
+                    L : --°C
+                  </h1>
                 </div>
               </li>
-              <li class="w-1/8 border-2 rounded-3xl p-2">
-                <div class="flex flex-col items-center gap-4">
-                  <h1>Monday</h1>
-                  <img src="./assets/cloudy.png" alt="cloudy" class="h-auto" />
-                  <h1>25°C</h1>
+              <li class="border-2 rounded-3xl p-2 bg-white/10 text-white">
+                <div class="flex flex-col items-center justify-center gap-2">
+                  <h1 class="font-semibold text-base sm:text-lg">--</h1>
+                  <p class="text-xs sm:text-sm">-- -- ----</p>
+                  <img
+                    src="./assets/not-found.png"
+                    alt="weather-code"
+                    class="h-12 w-12 sm:h-16 sm:w-16 object-cover"
+                  />
+                  <h1 class="text-sm sm:text-base">--°C</h1>
+                  <h1 class="text-xs sm:text-sm text-center">
+                    H: --°C <br />
+                    L : --°C
+                  </h1>
                 </div>
               </li>
-              <li class="w-1/8 border-2 rounded-3xl p-2">
-                <div class="flex flex-col items-center gap-4">
-                  <h1>Monday</h1>
-                  <img src="./assets/cloudy.png" alt="cloudy" class="h-auto" />
-                  <h1>25°C</h1>
+              <li class="border-2 rounded-3xl p-2 bg-white/10 text-white">
+                <div class="flex flex-col items-center justify-center gap-2">
+                  <h1 class="font-semibold text-base sm:text-lg">--</h1>
+                  <p class="text-xs sm:text-sm">-- -- ----</p>
+                  <img
+                    src="./assets/not-found.png"
+                    alt="weather-code"
+                    class="h-12 w-12 sm:h-16 sm:w-16 object-cover"
+                  />
+                  <h1 class="text-sm sm:text-base">--°C</h1>
+                  <h1 class="text-xs sm:text-sm text-center">
+                    H: --°C <br />
+                    L : --°C
+                  </h1>
                 </div>
               </li>
-              <li class="w-1/8 border-2 rounded-3xl p-2">
-                <div class="flex flex-col items-center gap-4">
-                  <h1>Monday</h1>
-                  <img src="./assets/cloudy.png" alt="cloudy" class="h-auto" />
-                  <h1>25°C</h1>
+              <li class="border-2 rounded-3xl p-2 bg-white/10 text-white">
+                <div class="flex flex-col items-center justify-center gap-2">
+                  <h1 class="font-semibold text-base sm:text-lg">--</h1>
+                  <p class="text-xs sm:text-sm">-- -- ----</p>
+                  <img
+                    src="./assets/not-found.png"
+                    alt="weather-code"
+                    class="h-12 w-12 sm:h-16 sm:w-16 object-cover"
+                  />
+                  <h1 class="text-sm sm:text-base">--°C</h1>
+                  <h1 class="text-xs sm:text-sm text-center">
+                    H: --°C <br />
+                    L : --°C
+                  </h1>
                 </div>
               </li>
-              <li class="w-1/8 border-2 rounded-3xl p-2">
-                <div class="flex flex-col items-center gap-4">
-                  <h1>Monday</h1>
-                  <img src="./assets/cloudy.png" alt="cloudy" class="h-auto" />
-                  <h1>25°C</h1>
+              <li class="border-2 rounded-3xl p-2 bg-white/10 text-white">
+                <div class="flex flex-col items-center justify-center gap-2">
+                  <h1 class="font-semibold text-base sm:text-lg">--</h1>
+                  <p class="text-xs sm:text-sm">-- -- ----</p>
+                  <img
+                    src="./assets/not-found.png"
+                    alt="weather-code"
+                    class="h-12 w-12 sm:h-16 sm:w-16 object-cover"
+                  />
+                  <h1 class="text-sm sm:text-base">--°C</h1>
+                  <h1 class="text-xs sm:text-sm text-center">
+                    H: --°C <br />
+                    L : --°C
+                  </h1>
                 </div>
               </li>
-              <li class="w-1/8 border-2 rounded-3xl p-2">
-                <div class="flex flex-col items-center gap-4">
-                  <h1>Monday</h1>
-                  <img src="./assets/cloudy.png" alt="cloudy" class="h-auto" />
-                  <h1>25°C</h1>
+              <li class="border-2 rounded-3xl p-2 bg-white/10 text-white">
+                <div class="flex flex-col items-center justify-center gap-2">
+                  <h1 class="font-semibold text-base sm:text-lg">--</h1>
+                  <p class="text-xs sm:text-sm">-- -- ----</p>
+                  <img
+                    src="./assets/not-found.png"
+                    alt="weather-code"
+                    class="h-12 w-12 sm:h-16 sm:w-16 object-cover"
+                  />
+                  <h1 class="text-sm sm:text-base">--°C</h1>
+                  <h1 class="text-xs sm:text-sm text-center">
+                    H: --°C <br />
+                    L : --°C
+                  </h1>
                 </div>
-              </li> -->
+              </li>
             </ul>
           </div>
 
           <!-- tomorow -->
-          <div class="flex justify-between">
+          <div
+            class="flex flex-col md:flex-row justify-between items-center mt-4"
+          >
             <div class="flex items-center gap-8 text-white">
               <div>
                 <h1 class="text-2xl">Tomorrow</h1>
-                <p id="tomorrow-item-weather-code" class="text-lg"></p>
+                <p id="tomorrow-item-weather-code" class="text-lg">--</p>
               </div>
-              <h1 id="tomorrow-item-temp" class="text-5xl"></h1>
+              <h1 id="tomorrow-item-temp" class="text-5xl">--°C</h1>
             </div>
             <img
               id="tomorrow-item-weather-code-image"
-              src="./assets/thunderstorm.png"
+              src="./assets/not-found.png"
               alt="thunderstorm"
               class="relative bottom-5 right-10"
               style="height: 130px; width: 130px"
@@ -236,22 +305,22 @@
       </div>
 
       <!-- right content -->
-      <div class="w-2/5">
+      <div class="w-full lg:w-2/5">
         <!-- top -->
-        <div class="bg-gray-500 rounded-xl ml-6 mt-4 p-6 bg-opacity-50">
+        <div class="bg-gray-500 rounded-xl mt-4 p-6 bg-opacity-50">
           <h1 class="text-xl text-white mb-4">Today Highlight</h1>
-          <div class="grid grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div
               class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl bg-opacity-80"
             >
               <p class="text-xl mb-4">Sunrise</p>
-              <h1 id="sunrise" class="text-4xl"></h1>
+              <h1 id="sunrise" class="text-4xl">-- . --</h1>
             </div>
             <div
               class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl bg-opacity-80"
             >
               <p class="text-xl mb-4">Sunset</p>
-              <h1 id="sunset" class="text-4xl"></h1>
+              <h1 id="sunset" class="text-4xl">-- . --</h1>
             </div>
             <div
               class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl bg-opacity-80"
@@ -261,92 +330,125 @@
                 id="wind-direction"
                 class="flex items-center gap-6 px-2 pb-2"
               >
-                <!-- <img src="./assets/wind-direction.png" alt="" class="h-12" />
-                <h1  class="text-4xl">289</h1> -->
+                <img
+                  src="./assets/wind-direction.png"
+                  alt="direction"
+                  class="h-12"
+                />
+                <h1 class="text-4xl">--</h1>
               </div>
             </div>
             <div
               class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl bg-opacity-80"
             >
               <p class="text-xl mb-4">UV Index</p>
-              <h1 id="uv-index" class="text-4xl"></h1>
+              <h1 id="uv-index" class="text-4xl">--</h1>
             </div>
           </div>
         </div>
 
         <!-- bottom -->
-        <div class="ml-2 p-6">
+        <div class="p-4 sm:p-6">
           <!-- other cities -->
-          <div class="flex justify-between items-center mb-4">
-            <h1 class="text-xl text-gray-600 dark:text-white">Other Cities</h1>
+          <div
+            class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2"
+          >
+            <h1 class="text-lg sm:text-xl text-gray-600 dark:text-white">
+              Other Cities
+            </h1>
             <button
               id="show-modal-all-city"
               onclick="showModalAllCity()"
-              class="text-gray-600 dark:text-white"
+              class="text-sm sm:text-base text-gray-600 dark:text-white"
             >
               Show All
             </button>
           </div>
 
           <!-- cardlist -->
-          <div>
-            <ul id="some-other-cities" class="grid grid-cols-2 gap-4">
-              <!-- <li>
-                <div class="w-auto h-auto text-white bg-slate-400 rounded-3xl">
-                  <div class="flex items-end mb-4">
-                    <h1 class="text-5xl">25°</h1>
-                    <p class="text-xs">H:30° L:20°</p>
+
+          <ul id="some-other-cities" class="grid grid-cols-2 gap-4">
+            <li>
+              <div
+                class="w-full h-full p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80"
+              >
+                <p class="text-2xl sm:text-3xl mb-2">--</p>
+                <div class="flex justify-between items-center mb-2">
+                  <div class="flex flex-col">
+                    <h1 class="text-3xl sm:text-4xl mb-2">-- °C</h1>
+                    <p class="text-xs sm:text-sm">H:--°C L: --°C</p>
                   </div>
-                  <p class="text-xl mb-4">Jakarta</p>
-                  <div class="flex justify-end relative bottom-8">
-                    <img src="./assets/Sun.png" alt="sun" />
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div
-                  class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl"
-                >
-                  <div class="flex items-end mb-4">
-                    <h1 class="text-5xl">25°</h1>
-                    <p class="text-xs">H:30° L:20°</p>
-                  </div>
-                  <p class="text-xl mb-4">Jakarta</p>
-                  <div class="flex justify-end relative bottom-8">
-                    <img src="./assets/Sun.png" alt="sun" />
+                  <div class="flex">
+                    <img
+                      src="./assets/not-found.png"
+                      alt="weather-code"
+                      class="w-16 h-16 sm:w-20 sm:h-20 object-contain"
+                    />
                   </div>
                 </div>
-              </li>
-              <li>
-                <div
-                  class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl"
-                >
-                  <div class="flex items-end mb-4">
-                    <h1 class="text-5xl">25°</h1>
-                    <p class="text-xs">H:30° L:20°</p>
+              </div>
+            </li>
+            <li>
+              <div
+                class="w-full h-full p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80"
+              >
+                <p class="text-2xl sm:text-3xl mb-2">--</p>
+                <div class="flex justify-between items-center mb-2">
+                  <div class="flex flex-col">
+                    <h1 class="text-3xl sm:text-4xl mb-2">-- °C</h1>
+                    <p class="text-xs sm:text-sm">H:--°C L: --°C</p>
                   </div>
-                  <p class="text-xl mb-4">Jakarta</p>
-                  <div class="flex justify-end relative bottom-8">
-                    <img src="./assets/Sun.png" alt="sun" />
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div
-                  class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl"
-                >
-                  <div class="flex items-end mb-4">
-                    <h1 class="text-5xl">25°</h1>
-                    <p class="text-xs">H:30° L:20°</p>
-                  </div>
-                  <p class="text-xl mb-4">Jakarta</p>
-                  <div class="flex justify-end relative bottom-8">
-                    <img src="./assets/Sun.png" alt="sun" />
+                  <div class="flex">
+                    <img
+                      src="./assets/not-found.png"
+                      alt="weather-code"
+                      class="w-16 h-16 sm:w-20 sm:h-20 object-contain"
+                    />
                   </div>
                 </div>
-              </li> -->
-            </ul>
-          </div>
+              </div>
+            </li>
+            <li>
+              <div
+                class="w-full h-full p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80"
+              >
+                <p class="text-2xl sm:text-3xl mb-2">--</p>
+                <div class="flex justify-between items-center mb-2">
+                  <div class="flex flex-col">
+                    <h1 class="text-3xl sm:text-4xl mb-2">-- °C</h1>
+                    <p class="text-xs sm:text-sm">H:--°C L: --°C</p>
+                  </div>
+                  <div class="flex">
+                    <img
+                      src="./assets/not-found.png"
+                      alt="weather-code"
+                      class="w-16 h-16 sm:w-20 sm:h-20 object-contain"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div
+                class="w-full h-full p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80"
+              >
+                <p class="text-2xl sm:text-3xl mb-2">--</p>
+                <div class="flex justify-between items-center mb-2">
+                  <div class="flex flex-col">
+                    <h1 class="text-3xl sm:text-4xl mb-2">-- °C</h1>
+                    <p class="text-xs sm:text-sm">H:--°C L: --°C</p>
+                  </div>
+                  <div class="flex">
+                    <img
+                      src="./assets/not-found.png"
+                      alt="weather-code"
+                      class="w-16 h-16 sm:w-20 sm:h-20 object-contain"
+                    />
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

@@ -254,22 +254,30 @@ const getDataForecast = async (latData, lonData) => {
           2
       ).toFixed(1);
       const forecastItem = document.createElement("li");
-      forecastItem.classList.add("border-2", "rounded-3xl", "p-2", "px-4");
+      forecastItem.classList.add(
+        "border-2",
+        "rounded-3xl",
+        "p-2",
+        "bg-white/10",
+        "text-white"
+      );
       forecastItem.innerHTML = `
         <div class="flex flex-col items-center justify-center gap-2">
-          <h1 class="font-semibold text-lg">${formatDay(new Date(time))}</h1>
-          <p class="text-sm">${formatDate(new Date(time))}</p>
+          <h1 class="font-semibold text-base sm:text-lg">${formatDay(
+            new Date(time)
+          )}</h1>
+          <p class="text-xs sm:text-sm">${formatDate(new Date(time))}</p>
           <img src="./assets/weather-code/${
             data.daily.weather_code[index]
-          }.png" alt="weather-code" class="h-16 w-16 object-cover" />
-          <h1 class=" text-sm">${averageTemp} ${
+          }.png" alt="weather-code" class="h-12 w-12 sm:h-16 sm:w-16 object-cover" />
+          <h1 class="text-sm sm:text-base">${averageTemp} ${
         data.daily_units.temperature_2m_max
       }</h1>
-          <h1 class="text-xs">H: ${data.daily.temperature_2m_max[index]}${
-        data.daily_units.temperature_2m_max
-      } <br/> L : ${data.daily.temperature_2m_min[index]}${
-        data.daily_units.temperature_2m_min
-      } </h1>
+          <h1 class="text-xs sm:text-sm text-center">H: ${
+            data.daily.temperature_2m_max[index]
+          }${data.daily_units.temperature_2m_max} <br/> L : ${
+        data.daily.temperature_2m_min[index]
+      }${data.daily_units.temperature_2m_min} </h1>
         </div>
       `;
       forecastContainer.appendChild(forecastItem);
