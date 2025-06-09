@@ -148,7 +148,6 @@
                   <!-- Cloudy -->
                   --
                 </h1>
-                <h4 class="text-lg text-right">--</h4>
               </div>
             </div>
           </div>
@@ -456,6 +455,7 @@
     <!-- modal Popup show all city -->
     <div
       id="modal-overlay"
+      onclick="closeModalAllCity()"
       class="fixed hidden items-center justify-center bg-black bg-opacity-50 inset-0 p-4"
     >
       <div
@@ -474,7 +474,7 @@
           id="all-other-cities"
           class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
         >
-          <li>
+          <!-- <li>
             <div
               class="w-full h-full p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80"
             >
@@ -487,9 +487,9 @@
                 />
               </div>
               <h1 class="text-4xl sm:text-5xl">-- °C</h1>
-              <p class="text-xs sm:text-sm">H:30 °C L:20 °C</p>
+              <p class="text-xs sm:text-sm">H:-- °C L:-- °C</p>
             </div>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>

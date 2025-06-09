@@ -236,23 +236,20 @@ const getDataCurrent = async (latData, lonData, cityName) => {
 };
 
 const urlForecast = (latData, lonData) => {
-  return `https://api.open-meteo.com/v1/forecast?latitude=${latData}&longitude=${lonData}&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto`;
+  return `
+  https://api.open-meteo.com/v1/forecast?latitude=${latData}&longitude=${lonData}&daily=weather_code,temperature_2m_max,temperature_2m_min,temperature_2m_mean&timezone=auto`;
 };
 
 const getDataForecast = async (latData, lonData) => {
   try {
     const response = await fetch(urlForecast(latData, lonData));
     const data = await response.json();
+    // console.log(data);
 
     const forecastContainer = document.getElementById("forecast-container");
     forecastContainer.innerHTML = "";
 
     data.daily.time.forEach((time, index) => {
-      const averageTemp = Number(
-        (data.daily.temperature_2m_max[index] +
-          data.daily.temperature_2m_min[index]) /
-          2
-      ).toFixed(1);
       const forecastItem = document.createElement("li");
       forecastItem.classList.add(
         "border-2",
@@ -270,9 +267,9 @@ const getDataForecast = async (latData, lonData) => {
           <img src="./assets/weather-code/${
             data.daily.weather_code[index]
           }.png" alt="weather-code" class="h-12 w-12 sm:h-16 sm:w-16 object-cover" />
-          <h1 class="text-sm sm:text-base">${averageTemp} ${
-        data.daily_units.temperature_2m_max
-      }</h1>
+          <h1 class="text-sm sm:text-base">${
+            data.daily.temperature_2m_mean[index]
+          } ${data.daily_units.temperature_2m_max}</h1>
           <h1 class="text-xs sm:text-sm text-center">H: ${
             data.daily.temperature_2m_max[index]
           }${data.daily_units.temperature_2m_max} <br/> L : ${
@@ -388,15 +385,11 @@ const checkDataOtherCities = () => {
 
       const cityCard = document.createElement("li");
       cityCard.innerHTML = `
-        <div onclick="searchAndUpdateWeather('${
-          dataOtherCities[i].name
-        }')" class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80">
+        <div onclick="searchAndUpdateWeather('${dataOtherCities[i].name}')" class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80">
           <p class="text-3xl mb-4">${dataOtherCities[i].name}</p>
           <div class="flex justify-between items-center mb-4">
             <div class="flex flex-col mb-4">
-              <h1 class="text-4xl mb-6">${Math.round(
-                currentTemp
-              )}${tempUnits}</h1>
+              <h1 class="text-4xl mb-6">${currentTemp}${tempUnits}</h1>
               <p class="text-xs">H:${maxTemp} ${tempUnits} L:${minTemp} ${tempUnits}</p>
             </div>
             <div class="flex bottom-6 relative">
@@ -408,38 +401,31 @@ const checkDataOtherCities = () => {
       someOtherCities.appendChild(cityCard);
     }
   })();
-};
 
-// checkDataOtherCities();
+  (async () => {
+    for (let i = 0; i < dataOtherCities.length; i++) {
+      const latData = dataOtherCities[i].lat;
+      const lonData = dataOtherCities[i].lng;
+      const data = await getDataCurrentCities(latData, lonData);
+      const currentTemp = data?.current?.temperature_2m;
+      const tempUnits = data?.current_units?.temperature_2m;
+      const maxTemp = data?.daily?.temperature_2m_max[0];
+      const minTemp = data?.daily?.temperature_2m_min[0];
+      const weatherCode = data?.daily?.weather_code[0];
+      const allOtherCities = document.getElementById("all-other-cities");
 
-const allCitiesData = [
-  "Yogyakarta",
-  "Bali",
-  "Palembang",
-  "Lampung",
-  "Medan",
-  "Padang",
-  "Pekanbaru",
-  "Aceh",
-  "Jakarta",
-  "Bandung",
-  "Surabaya",
-  "Semarang",
-];
-
-const allOtherCities = document.getElementById("all-other-cities");
-
-allCitiesData.forEach((city) => {
-  const cityCard = document.createElement("li");
-  cityCard.innerHTML = `
-    <div onclick="closeModalAllCity();searchAndUpdateWeather('${city}')" class="w-full h-full p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80">
-    <p class="text-2xl sm:text-3xl mb-2">${city}</p>
+      const cityCard = document.createElement("li");
+      cityCard.innerHTML = `
+    <div onclick="closeModalAllCity();searchAndUpdateWeather('${dataOtherCities[i].name}')" class="w-full h-full p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80">
+    <p class="text-2xl sm:text-3xl mb-2">${dataOtherCities[i].name}</p>
     <div class="flex justify-center my-2">
-      <img src="./assets/Sun.png" alt="sun" class="w-16 h-16 sm:w-20 sm:h-20 object-contain" />
+      <img src="./assets/weather-code/${weatherCode}.png" alt="sun" class="w-16 h-16 sm:w-20 sm:h-20 object-contain" />
     </div>
-        <h1 class="text-4xl sm:text-5xl">25°</h1>
-        <p class="text-xs sm:text-sm">H:30° L:20°</p>
+        <h1 class="text-4xl sm:text-5xl">${currentTemp}${tempUnits}</h1>
+        <p class="text-xs sm:text-sm">H:${maxTemp}${tempUnits} L:${minTemp}${tempUnits}</p>
     </div>
   `;
-  allOtherCities.appendChild(cityCard);
-});
+      allOtherCities.appendChild(cityCard);
+    }
+  })();
+};
