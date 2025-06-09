@@ -432,15 +432,13 @@ const allOtherCities = document.getElementById("all-other-cities");
 allCitiesData.forEach((city) => {
   const cityCard = document.createElement("li");
   cityCard.innerHTML = `
-    <div onclick="closeModalAllCity();searchAndUpdateWeather('${city}')" class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95">
-    <p class="text-3xl mb-4">${city}</p>
-      <div class="flex items-end mb-4">
-        <h1 class="text-5xl">25°</h1>
-        <p class="text-xs">H:30° L:20°</p>
-      </div>
-      <div class="flex justify-end relative bottom-8">
-        <img src="./assets/Sun.png" alt="sun" />
-      </div>
+    <div onclick="closeModalAllCity();searchAndUpdateWeather('${city}')" class="w-full h-full p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80">
+    <p class="text-2xl sm:text-3xl mb-2">${city}</p>
+    <div class="flex justify-center my-2">
+      <img src="./assets/Sun.png" alt="sun" class="w-16 h-16 sm:w-20 sm:h-20 object-contain" />
+    </div>
+        <h1 class="text-4xl sm:text-5xl">25°</h1>
+        <p class="text-xs sm:text-sm">H:30° L:20°</p>
     </div>
   `;
   allOtherCities.appendChild(cityCard);

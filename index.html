@@ -351,7 +351,7 @@
         <div class="p-4 sm:p-6">
           <!-- other cities -->
           <div
-            class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2"
+            class="flex flex-row justify-between items-start sm:items-center mb-4 gap-2"
           >
             <h1 class="text-lg sm:text-xl text-gray-600 dark:text-white">
               Other Cities
@@ -456,10 +456,10 @@
     <!-- modal Popup show all city -->
     <div
       id="modal-overlay"
-      class="fixed hidden items-center justify-center bg-black bg-opacity-50 inset-0"
+      class="fixed hidden items-center justify-center bg-black bg-opacity-50 inset-0 p-4"
     >
       <div
-        class="bg-white dark:bg-gray-800 rounded-3xl p-6 w-2/3 max-h-[80vh] overflow-y-auto relative"
+        class="bg-white dark:bg-gray-800 rounded-3xl p-6 w-full sm:w-5/6 lg:w-2/3 max-h-[80vh] overflow-y-auto relative"
       >
         <div class="flex justify-between items-center mb-6">
           <h1 class="text-2xl font-bold">Weather in other cities</h1>
@@ -470,21 +470,26 @@
             &times;
           </button>
         </div>
-        <ul id="all-other-cities" class="grid grid-cols-4 gap-4">
-          <!-- <li>
+        <ul
+          id="all-other-cities"
+          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+        >
+          <li>
             <div
-              class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95"
+              class="w-full h-full p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80"
             >
-              <p class="text-3xl mb-4">Jakarta</p>
-              <div class="flex items-end mb-4">
-                <h1 class="text-5xl">25°</h1>
-                <p class="text-xs">H:30° L:20°</p>
+              <p class="text-2xl sm:text-3xl mb-2">--</p>
+              <div class="flex justify-center mt-2">
+                <img
+                  src="./assets/not-found.png"
+                  alt="sun"
+                  class="w-16 h-16 sm:w-20 sm:h-20 object-contain"
+                />
               </div>
-              <div class="flex justify-end relative bottom-8">
-                <img src="./assets/Sun.png" alt="sun" />
-              </div>
+              <h1 class="text-4xl sm:text-5xl">-- °C</h1>
+              <p class="text-xs sm:text-sm">H:30 °C L:20 °C</p>
             </div>
-          </li> -->
+          </li>
         </ul>
       </div>
     </div>
