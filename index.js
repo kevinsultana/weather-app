@@ -324,7 +324,7 @@ const closeModalAllCity = () => {
 };
 
 const urlDataOtherCities = (countryId) => {
-  return `https://api.geonames.org/searchJSON?country=${countryId}&featureClass=P&maxRows=12&orderby=population&username=kevinsul22`;
+  return `https://cors-anywhere.herokuapp.com/http://api.geonames.org/searchJSON?country=${countryId}&featureClass=P&maxRows=12&orderby=population&username=kevinsul22`;
 };
 
 let dataOtherCities = [];
