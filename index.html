@@ -493,6 +493,36 @@
         </ul>
       </div>
     </div>
+
+    <!-- loading indicator  -->
+    <div
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      id="loading"
+    >
+      <div class="flex flex-col items-center gap-4 bg-white/40 rounded-3xl p-4">
+        <svg
+          class="animate-spin h-24 w-24 text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-50"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="2"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v8H4z"
+          ></path>
+        </svg>
+        <p class="text-white text-lg">Loading Weather data</p>
+      </div>
+    </div>
     <script src="index.js"></script>
   </body>
 </html>

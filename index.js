@@ -55,11 +55,20 @@ toggleDark.addEventListener("change", function () {
 
 // getLocationOnLoad();
 
+const showLoading = () => {
+  document.getElementById("loading").classList.remove("hidden");
+};
+
+const hideLoading = () => {
+  document.getElementById("loading").classList.add("hidden");
+};
+
 const urlGetLatLon = (value) => {
   return `https://api.opencagedata.com/geocode/v1/json?q=${value}&key=1f191637f9e8463f8c43bef4536e84e8`;
 };
 
 const searchAndUpdateWeather = async (cityName) => {
+  showLoading();
   const url = urlGetLatLon(cityName);
   try {
     const response = await fetch(url);
@@ -81,8 +90,10 @@ const searchAndUpdateWeather = async (cityName) => {
     await getDataForecast(latData, lonData);
     await getDataOtherCities(countryCode);
     checkDataOtherCities();
+    hideLoading();
   } catch (error) {
     console.log(error);
+    hideLoading();
   }
 };
 
@@ -338,6 +349,7 @@ const getDataOtherCities = async (countryId) => {
 // const someOtherCitiesData = ["Jakarta", "Bandung", "Surabaya", "Semarang"];
 
 const someOtherCities = document.getElementById("some-other-cities");
+const allOtherCities = document.getElementById("all-other-cities");
 
 const urlDataCurrent = (lat, lon) => {
   return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&current=temperature_2m&forecast_days=1`;
@@ -401,6 +413,8 @@ const checkDataOtherCities = () => {
       someOtherCities.appendChild(cityCard);
     }
   })();
+
+  allOtherCities.innerHTML = "";
 
   (async () => {
     for (let i = 0; i < dataOtherCities.length; i++) {
