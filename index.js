@@ -51,7 +51,7 @@ const getLocationOnLoad = () => {
   }
 };
 
-// getLocationOnLoad();
+getLocationOnLoad();
 
 const showLoading = () => {
   document.getElementById("loading").classList.remove("hidden");
