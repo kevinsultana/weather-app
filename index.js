@@ -51,7 +51,7 @@ const getLocationOnLoad = () => {
   }
 };
 
-getLocationOnLoad();
+// getLocationOnLoad();
 
 const showLoading = () => {
   document.getElementById("loading").classList.remove("hidden");
@@ -229,7 +229,7 @@ const getDataCurrent = async (latData, lonData, cityName) => {
       dataDaily.daily_units.temperature_2m_min;
 
     const currentWeather = document.getElementById("current-weather");
-    currentWeather.innerHTML = `<img src="./assets/weather-code/${dataDaily.daily.weather_code[0]}.png" alt="weather-code" class="h-52" />`;
+    currentWeather.innerHTML = `<img src="./assets/weather-code/${dataDaily.daily.weather_code[0]}.png" alt="weather-code" class="h-40" />`;
 
     const currentWeatherDescription = document.getElementById(
       "current-weather-description"
@@ -392,14 +392,14 @@ const checkDataOtherCities = () => {
 
       const cityCard = document.createElement("li");
       cityCard.innerHTML = `
-        <div onclick="searchAndUpdateWeather('${dataOtherCities[i].name}')" class="w-auto h-auto p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition-all 0.3s hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80">
-          <p class="text-3xl mb-4">${dataOtherCities[i].name}</p>
-          <div class="flex justify-between items-center mb-4">
-            <div class="flex flex-col mb-4">
-              <h1 class="text-4xl mb-6">${currentTemp}${tempUnits}</h1>
-              <p class="text-xs">H:${maxTemp} ${tempUnits} L:${minTemp} ${tempUnits}</p>
+        <div onclick="searchAndUpdateWeather('${dataOtherCities[i].name}')" class="w-full h-full p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80">
+          <p class="text-2xl sm:text-3xl mb-2">${dataOtherCities[i].name}</p>
+          <div class="flex justify-between items-center mb-2">
+            <div class="flex flex-col">
+              <h1 class="text-3xl sm:text-4xl mb-2">${currentTemp}${tempUnits}</h1>
+              <p class="text-xs sm:text-sm">H:${maxTemp} ${tempUnits} L:${minTemp} ${tempUnits}</p>
             </div>
-            <div class="flex bottom-6 relative">
+            <div class="flex">
               <img src="./assets/weather-code/${weatherCode}.png" alt="sun" class="w-20 h-20 object-fill" />
             </div>
           </div>
