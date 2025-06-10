@@ -19,39 +19,37 @@ toggleDark.addEventListener("change", function () {
   document.documentElement.classList.toggle("dark");
 });
 
-// const getLocationOnLoad = () => {
-//   if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(
-//       async (position) => {
-//         const lat = position.coords.latitude;
-//         const lon = position.coords.longitude;
+const getLocationOnLoad = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
 
-//         try {
-//           // Dapatkan nama kota dari OpenCage
-//           const response = await fetch(
-//             `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=1f191637f9e8463f8c43bef4536e84e8`
-//           );
-//           const data = await response.json();
-//           const cityName =
-//             data.results[0].components.city ||
-//             data.results[0].components.town ||
-//             data.results[0].components.village ||
-//             "Lokasi Anda";
+        try {
+          const response = await fetch(
+            `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=1f191637f9e8463f8c43bef4536e84e8`
+          );
+          const data = await response.json();
+          const cityName =
+            data.results[0].components.city ||
+            data.results[0].components.town ||
+            data.results[0].components.village ||
+            "Lokasi Anda";
 
-//           await getDataCurrent(lat, lon, cityName);
-//           await getDataForecast(lat, lon);
-//         } catch (error) {
-//           console.log("Gagal mengambil data berdasarkan lokasi:", error);
-//         }
-//       },
-//       (error) => {
-//         console.log("Gagal mendapatkan lokasi pengguna:", error);
-//       }
-//     );
-//   } else {
-//     console.log("Geolocation tidak didukung oleh browser ini.");
-//   }
-// };
+          searchAndUpdateWeather(cityName);
+        } catch (error) {
+          console.log("Gagal mengambil data berdasarkan lokasi:", error);
+        }
+      },
+      (error) => {
+        console.log("Gagal mendapatkan lokasi pengguna:", error);
+      }
+    );
+  } else {
+    console.log("Geolocation tidak didukung oleh browser ini.");
+  }
+};
 
 // getLocationOnLoad();
 
@@ -73,9 +71,6 @@ const searchAndUpdateWeather = async (cityName) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    // console.log(data);
-
-    // if error buat nanti disini
 
     const latData = data.results[0].geometry.lat;
     const lonData = data.results[0].geometry.lng;
