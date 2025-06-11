@@ -1,23 +1,20 @@
-const checkbox = document.getElementById("toggle-degree");
-const dot = document.getElementById("dot");
-
-checkbox.addEventListener("change", () => {
-  if (checkbox.checked) {
-    dot.style.transform = "translateX(30px)";
-  } else {
-    dot.style.transform = "translateX(0)";
-  }
-});
-
-if (checkbox.checked) {
-  dot.style.transform = "translateX(30px)";
-}
-
 const toggleDark = document.getElementById("toggle-dark");
 
 toggleDark.addEventListener("change", function () {
   document.documentElement.classList.toggle("dark");
 });
+
+const prefersDarkMode = window.matchMedia(
+  "(prefers-color-scheme: dark)"
+).matches;
+
+if (prefersDarkMode) {
+  document.documentElement.classList.add("dark");
+  toggleDark.checked = true;
+} else {
+  document.documentElement.classList.remove("dark");
+  toggleDark.checked = false;
+}
 
 const getLocationOnLoad = () => {
   if (navigator.geolocation) {
@@ -55,10 +52,12 @@ const getLocationOnLoad = () => {
 
 const showLoading = () => {
   document.getElementById("loading").classList.remove("hidden");
+  document.getElementById("loading").classList.add("flex");
 };
 
 const hideLoading = () => {
   document.getElementById("loading").classList.add("hidden");
+  document.getElementById("loading").classList.remove("flex");
 };
 
 const urlGetLatLon = (value) => {
@@ -324,8 +323,9 @@ const closeModalAllCity = () => {
 };
 
 const urlDataOtherCities = (countryId) => {
-  return `https://cors-anywhere.herokuapp.com/http://api.geonames.org/searchJSON?country=${countryId}&featureClass=P&maxRows=12&orderby=population&username=kevinsul22`;
+  return `http://api.geonames.org/searchJSON?country=${countryId}&featureClass=P&maxRows=12&orderby=population&username=kevinsul22`;
 };
+// https://cors-anywhere.herokuapp.com/
 
 let dataOtherCities = [];
 
@@ -392,7 +392,7 @@ const checkDataOtherCities = () => {
 
       const cityCard = document.createElement("li");
       cityCard.innerHTML = `
-        <div onclick="searchAndUpdateWeather('${dataOtherCities[i].name}')" class="w-full h-full p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80">
+        <div onclick="searchAndUpdateWeather('${dataOtherCities[i].name}')" class="w-full h-full p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80 border-2 dark:border-blue-300">
           <p class="text-2xl sm:text-3xl mb-2">${dataOtherCities[i].name}</p>
           <div class="flex justify-between items-center mb-2">
             <div class="flex flex-col">
