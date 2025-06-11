@@ -425,7 +425,7 @@ const checkDataOtherCities = () => {
 
       const cityCard = document.createElement("li");
       cityCard.innerHTML = `
-    <div onclick="closeModalAllCity();searchAndUpdateWeather('${dataOtherCities[i].name}')" class="w-full h-full p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80">
+    <div onclick="closeModalAllCity();searchAndUpdateWeather('${dataOtherCities[i].name}')" class="flex flex-col justify-between w-full h-full p-4 text-white bg-slate-400 rounded-3xl cursor-pointer transition hover:shadow-lg hover:shadow-gray-800 dark:hover:shadow-gray-400 active:scale-95 bg-opacity-80">
     <p class="text-2xl sm:text-3xl mb-2">${dataOtherCities[i].name}</p>
     <div class="flex justify-center my-2">
       <img src="./assets/weather-code/${weatherCode}.png" alt="sun" class="w-16 h-16 sm:w-20 sm:h-20 object-contain" />
