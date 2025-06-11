@@ -48,7 +48,17 @@ const getLocationOnLoad = () => {
   }
 };
 
-// getLocationOnLoad();
+getLocationOnLoad();
+
+const currentTime = document.getElementById("current-time");
+
+setInterval(() => {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  const seconds = now.getSeconds().toString().padStart(2, "0");
+  currentTime.textContent = `${hours}:${minutes}:${seconds}`;
+}, 1000);
 
 const showLoading = () => {
   document.getElementById("loading").classList.remove("hidden");
@@ -307,9 +317,6 @@ const getDataForecast = async (latData, lonData) => {
   }
 };
 
-// getDataCurrent(-0.9247587, 100.348441, "Jakarta");
-// getDataForecast(-0.9247587, 100.348441);
-
 const modalOverlay = document.getElementById("modal-overlay");
 
 const showModalAllCity = () => {
@@ -323,7 +330,7 @@ const closeModalAllCity = () => {
 };
 
 const urlDataOtherCities = (countryId) => {
-  return `http://api.geonames.org/searchJSON?country=${countryId}&featureClass=P&maxRows=12&orderby=population&username=kevinsul22`;
+  return `https://cors-anywhere.herokuapp.com/http://api.geonames.org/searchJSON?country=${countryId}&featureClass=P&maxRows=12&orderby=population&username=kevinsul22`;
 };
 // https://cors-anywhere.herokuapp.com/
 
